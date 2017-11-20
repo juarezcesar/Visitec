@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  client: 
+  agent: 
+  start_at: 2017-11-19 22:50:38
+  finish_at: 2017-11-19 22:50:38
+
+two:
+  description: MyString
+  client: 
+  agent: 
+  start_at: 2017-11-19 22:50:38
+  finish_at: 2017-11-19 22:50:38
