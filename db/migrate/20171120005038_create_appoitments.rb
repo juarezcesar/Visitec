@@ -1,6 +1,6 @@
-class CreateAppoitments < ActiveRecord::Migration[5.1]
+class CreateAppointments < ActiveRecord::Migration[5.1]
   def change
-    create_table :appoitments do |t|
+    create_table :appointments do |t|
       t.string :description
       t.references :client
       t.references :agent
