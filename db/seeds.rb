@@ -26,13 +26,12 @@ lupcinio  = {name: 'Lupícinio Rodrigues', address: 'Av. Pref. Erasto Gaertner, 
 adoniran  = {name: 'Adoniran Barbosa', address: 'Rua José Lins do Rêgo, 885 - Bairro Alto, Curitiba - PR'},
 baden     = {name: 'Baden Powell', address: 'R. Dr. Bley Zornig, 1554 - Boqueirão, Curitiba - PR'}
 
-Agent.create!([cartolo, ary, nelson, lupcinio, adoniran, baden])
+Agent.create!([cartola, ary, nelson, lupcinio, adoniran, baden])
 
 puts '6 Agents created'
 
 Appointment.create!([
     {description: "Revisão AC"}
-
   ])
 
 
