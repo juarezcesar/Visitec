@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users, path: '', path_names: {sign_in: 'login', sign_out: 'logout', sign_up: 'register'}
   resources :appoitments
   resources :agents
   resources :clients
@@ -6,5 +7,5 @@ Rails.application.routes.draw do
   get 'distance', to: "appointments#calculate_distance"
   get 'direction', to: "appointments#calculate_direction"
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: "clients#index"
 end
