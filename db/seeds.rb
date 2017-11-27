@@ -31,7 +31,7 @@ Agent.create!([cartola, ary, nelson, lupcinio, adoniran, baden])
 puts '6 Agents created'
 
 Appointment.create!([
-    {description: "Revisão AC"}
+    {description: "Revisão AC", }
   ])
 
 

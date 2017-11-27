@@ -4,8 +4,10 @@ class CreateAppointments < ActiveRecord::Migration[5.1]
       t.string :description
       t.references :client
       t.references :agent
+      t.references :route
       t.datetime :start_at
       t.datetime :finish_at
+
 
       t.timestamps
     end
