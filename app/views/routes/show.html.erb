@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Agent:</strong>
+  <%= @route.Agent %>
+</p>
+
+<p>
+  <strong>Integer:</strong>
+  <%= @route.integer %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @route.Address %>
+</p>
+
+<%= link_to 'Edit', edit_route_path(@route) %> |
+<%= link_to 'Back', routes_path %>

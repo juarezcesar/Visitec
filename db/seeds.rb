@@ -19,21 +19,27 @@ julia       = Client.create!({name: 'Julia Salzano', address: 'Rua Izabel a Rede
 puts '7 Clients created'
 
 #Agents
-cartola   = {name: 'Cartola', address: 'R. Viriato Corrêa, 742, Curitiba, Paraná'},
-ary       = {name: 'Ary Barroso', address: 'Av. Pres. Getúlio Vargas, 3526 - Rebouças, Curitiba - PR'},
-nelson    = {name: 'Nelson Gonçalves', address: 'Rua Santa Bertila Boscardin, 213 - Santa Felicidade, Curitiba - PR'},
-lupcinio  = {name: 'Lupícinio Rodrigues', address: 'Av. Pref. Erasto Gaertner, 1000 - Bacacheri, Curitiba - PR'},
-adoniran  = {name: 'Adoniran Barbosa', address: 'Rua José Lins do Rêgo, 885 - Bairro Alto, Curitiba - PR'},
-baden     = {name: 'Baden Powell', address: 'R. Dr. Bley Zornig, 1554 - Boqueirão, Curitiba - PR'}
-
-Agent.create!([cartola, ary, nelson, lupcinio, adoniran, baden])
+cartola   = Agent.create!({name: 'Cartola', address: 'R. Viriato Corrêa, 742, Curitiba, Paraná'})
+ary       = Agent.create!({name: 'Ary Barroso', address: 'Av. Pres. Getúlio Vargas, 3526 - Rebouças, Curitiba - PR'})
+nelson    = Agent.create!({name: 'Nelson Gonçalves', address: 'Rua Santa Bertila Boscardin, 213 - Santa Felicidade, Curitiba - PR'})
+lupcinio  = Agent.create!({name: 'Lupícinio Rodrigues', address: 'Av. Pref. Erasto Gaertner, 1000 - Bacacheri, Curitiba - PR'})
+adoniran  = Agent.create!({name: 'Adoniran Barbosa', address: 'Rua José Lins do Rêgo, 885 - Bairro Alto, Curitiba - PR'})
+baden     = Agent.create!({name: 'Baden Powell', address: 'R. Dr. Bley Zornig, 1554 - Boqueirão, Curitiba - PR'})
 
 puts '6 Agents created'
 
-Appointment.create!([
-    {description: "Revisão AC", }
-  ])
+Appointment.create!({description: "Limpeza 4 ACs", client: julia, agent: cartola})
+Appointment.create!({description: "Preenchimento gás AC", client: julia, agent: cartola})
+Appointment.create!({description: "Substituir split", client: julia, agent: cartola})
+Appointment.create!({description: "Revisão oito ACs", client: julia, agent: cartola})
+Appointment.create!({description: "Limpeza Caixa de Água", client: julia, agent: ary})
+Appointment.create!({description: "Troca painel solar", client: julia, agent: ary})
+Appointment.create!({description: "Vazamento Boiler", client: julia, agent: ary})
+Appointment.create!({description: "Painel aquecedor defeito display", client: julia, agent: nelson})
+Appointment.create!({description: "Aquecimento elétrico Boiler não funciona", client: julia, agent: nelson})
+Appointment.create!({description: "Orçamento Aquecimento Solar", client: julia, agent: adoniran})
 
+puts '10 Appointments created'
 
 
 

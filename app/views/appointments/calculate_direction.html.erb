@@ -1,0 +1,75 @@
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+    </style>
+    <p><%  @json.inspect %></p>
+    <hr><br><br>
+    <div id="google"></div>
+
+    <div id="map"></div>
+    <script>
+
+
+      try
+      {
+          var str = <%= @json.html_safe %>
+      }
+      catch(e)
+      {
+         alert(e);
+      }
+
+
+      function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat: 41.85, lng: -87.65}
+        });
+        directionsDisplay.setMap(map);
+
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        directionsService.route({
+          origin: "Alameda Dr. Carlos de Carvalho, 771 - Curitiba, Paraná",
+          destination: "R. Viriato Corrêa, 742, Curitiba, Paraná",
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+            var res = response
+            document.getElementById('google').innerHTML = JSON.stringify(response)
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6eOLeLFllJJdZmyDQNXeGpEFBhGl-cGM&callback=initMap">
+    </script>

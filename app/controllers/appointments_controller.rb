@@ -1,57 +1,54 @@
 require 'net/http'
 
 
+
 class AppointmentsController < ApplicationController
 
+  include DeviseWhitelistConcern
+  include GoogleConcern
 
-  def calculate_direction
-
-    google_key = Rails.application.secrets.google_api_map_directions
-    google_url = 'https://maps.googleapis.com/maps/api/directions/json?'
-    google_params = {origin: 'Curitiba',
-                     destination: 'Mandirituba',
-                     departure_time: Time.now.to_i + 3600,
-                     key: google_key}
-
-    url = URI.parse google_url + google_params.to_query
-
-    Rails.logger.info "Resquesting Google Map Directions: \n #{url}"
-
-    req = Net::HTTP::Get.new(url)
-
-    res = Net::HTTP.start(url.host, url.port,:use_ssl => true, :verify_mode => OpenSSL::SSL::VERIFY_NONE) { |http|
-      http.request(req)
-    }
-
-    raise Exception, res.body
-
+  def show_map
   end
-
 
   def calculate_distance
 
-    google_key = Rails.application.secrets.google_api_map_matrix
-    google_url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
-    google_params = {origins: 'Curitiba',
-                     destinations: 'Mandirituba',
-                     departure_time: Time.now.to_i + 3600,
-                     key: google_key}
+    @origins = ["Rua Seneca, 92 - São José dos Pinhais - PR",
+                "Rua Izabel a Redento, 1570 - Centro - São José dos Pinhais - PR"]
+    @destinations = ["R. Quinze de Novembro, 1310 - Centro, São José dos Pinhais - PR",
+                     "Av. Gonzáles Pecotche, 123 - Aristocrata, São José dos Pinhais - PR"]
 
-    url = URI.parse google_url + google_params.to_query
+    distance = distance @origins, @destinations
 
-    Rails.logger.info "Resquesting Google Map Matrix: \n #{url}"
+    @distance = JSON.parse(distance)
 
-    req = Net::HTTP::Get.new(url)
 
-    res = Net::HTTP.start(url.host, url.port,:use_ssl => true, :verify_mode => OpenSSL::SSL::VERIFY_NONE) { |http|
-      http.request(req)
-    }
+    @results = "$$" #@google_distance["rows"].first["elements"].first["distance"]["value"]
 
-    @distance = res.body
+
+    @clients = Client.all
+    @agents = Agent.all
 
   end
 
 
+  def calculate_route_optimization
+    agents = Agent.all
+    waypoints = agents[0].route + agents[1].route
 
+
+    response = route_optimization(agents.first.address, agents.first.address, waypoints)
+
+    @route = JSON.parse(response)
+    clear_hash(@route["geocoded_waypoints"])
+
+  end
+
+  def clear_hash(h)
+    h.map do |key, value|
+      h.delete!(key) if key == "place_id"
+      clear_hash(h[key]) if value.kind_of?(Enumerable)
+    end
+    return h
+  end
 
 end

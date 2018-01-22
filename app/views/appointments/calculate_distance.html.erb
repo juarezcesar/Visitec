@@ -1,6 +1,24 @@
-<p id="notice"><%= notice %></p>
+<h2>
 
-<p>
-  <strong>Distance:</strong>
-  <%= @distance %>
-</p>
+  <p><%= @origins %></p>
+  <p><%= @destinations %></p>
+
+
+
+<div>
+<%= select_tag(:client_id, options_from_collection_for_select(@clients, :id, :name)) %>
+<%= select_tag(:agent_id, options_from_collection_for_select(@agents, :id, :name)) %>
+
+
+
+</div>
+
+
+
+
+
+<%= @distance %>
+<br>
+-----------------------
+<br>
+<%= @google_distance %>
