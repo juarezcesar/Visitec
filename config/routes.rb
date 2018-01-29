@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'distance', to: "appointments#calculate_distance"
   get 'route', to: "appointments#calculate_route_optimization"
   get 'map', to: "appointments#show_map"
+  get 'map_locations', to: "appointments#map_locations"
 
   root to: "clients#index"
 end

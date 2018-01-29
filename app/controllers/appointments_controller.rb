@@ -7,7 +7,9 @@ class AppointmentsController < ApplicationController
   include DeviseWhitelistConcern
   include GoogleConcern
 
-  def show_map
+  def map_locations
+
+
   end
 
   def calculate_distance
@@ -32,16 +34,33 @@ class AppointmentsController < ApplicationController
 
 
   def calculate_route_optimization
-    agents = Agent.all
-    waypoints = agents[0].route + agents[1].route
 
+    a = Agent.first
 
-    response = route_optimization(agents.first.address, agents.first.address, waypoints)
+    @order = route_optimization(a.address, a.address, a.route)
 
-    @route = JSON.parse(response)
-    clear_hash(@route["geocoded_waypoints"])
 
   end
+
+  def show_map
+
+    agent = Agent.first
+
+    destination = origin = agent.address
+    waypoints = agent.route
+
+
+    order = route_optimization(origin, destination, waypoints)
+
+    waypoints_optimized = []
+    waypoints_optimized << order.map{|i| waypoints[i] }
+
+    @uri = embeded_map(agent.address, agent.address, waypoints_optimized.flatten)
+
+
+  end
+
+
 
   def clear_hash(h)
     h.map do |key, value|
